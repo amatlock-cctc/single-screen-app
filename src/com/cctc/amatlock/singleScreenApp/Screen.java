@@ -28,24 +28,36 @@ public class Screen extends Canvas implements Runnable
         return screen;
     }
 
+    /**
+     * Used to draw the backdrop for our program.
+     * @param g graphics engine used to draw 2d in window.
+     */
     public void drawBackground(Graphics g)
     {
+
+        // Making a dark gray background.
+        // First set the draw color to dark grey.
         g.setColor(Color.DARK_GRAY);
+
+        // Next make a rectangle starting in the top right corner (first 2 parameters)
+        // Make it the width and height of the window (last 2 parameters)
         g.fillRect(0, 0, WIDTH, HEIGHT);
     }
 
     public void drawForeground(Graphics g)
     {
+        // Draw a light gray rectangle in the middle
         g.setColor(Color.LIGHT_GRAY);
         g.fillRect(CENTER_X - 150, CENTER_Y - 50, 300, 100);
 
+        // Draw some text on the screen.
+        // I chose to locate it in the rectangle we just drew.
+        g.setColor(Color.BLACK);
         String line1 = "Hello Class, if you want more to do,";
         String line2 = "change things in drawForeground().";
-        g.setColor(Color.BLACK);
         g.drawString(line1, CENTER_X - 125, CENTER_Y - 10);
         g.drawString(line2, CENTER_X - 125, CENTER_Y + 10);
     }
-
 
     public void render()
     {
