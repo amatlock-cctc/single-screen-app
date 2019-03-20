@@ -5,25 +5,29 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 
-public class Screen extends Canvas implements Runnable
+public class FallingBrick extends Canvas implements Runnable
 {
     private static final long serialVersionUID = -1890564841829395437L;
 
     // These are all of our static variables.
     public static final int WIDTH = 640;  // Width of the window
     public static final int HEIGHT = WIDTH / 4 * 3;  // Height of the window
-    public static final int CENTER_X = Screen.WIDTH / 2;
-    public static final int CENTER_Y = Screen.HEIGHT / 2;
+    public static final int CENTER_X = FallingBrick.WIDTH / 2;
+    public static final int CENTER_Y = FallingBrick.HEIGHT / 2;
     public static final String TITLE = "My Window";  // Window title
+    public static final double GRAVITY = 0.977;
 
     private static JFrame frame = new JFrame();  // This is the window object
-    private static Screen screen = new Screen();  // Our program
+    private static FallingBrick screen = new FallingBrick();  // Our program
 
     // Instance variable
     private boolean running = false;  // Boolean flipped when the program starts or stops.
     private Thread thread;  // Don't worry about what this is.
 
-    public static Screen getInstance()
+    public Brick floor;
+    private Brick brick1;
+
+    public static FallingBrick getInstance()
     {
         return screen;
     }
@@ -34,7 +38,6 @@ public class Screen extends Canvas implements Runnable
      */
     public void drawBackground(Graphics g)
     {
-
         // Making a dark gray background.
         // First set the draw color to dark grey.
         g.setColor(Color.DARK_GRAY);
@@ -46,9 +49,9 @@ public class Screen extends Canvas implements Runnable
 
     public void drawForeground(Graphics g)
     {
-        // Draw a light gray rectangle in the middle
-        g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(CENTER_X - 150, CENTER_Y - 50, 300, 100);
+        // Create a brick and render it.
+        floor.render(g);
+        brick1.render(g);
 
         // Draw some text on the screen.
         // I chose to locate it in the rectangle we just drew.
@@ -57,6 +60,7 @@ public class Screen extends Canvas implements Runnable
         String line2 = "change things in drawForeground().";
         g.drawString(line1, CENTER_X - 125, CENTER_Y - 10);
         g.drawString(line2, CENTER_X - 125, CENTER_Y + 10);
+
     }
 
     public void render()
@@ -81,7 +85,7 @@ public class Screen extends Canvas implements Runnable
 
     public void tick()
     {
-
+        brick1.tick();
     }
 
     /**
@@ -89,6 +93,8 @@ public class Screen extends Canvas implements Runnable
      */
     public void init()
     {
+        brick1 = new Brick(CENTER_X - 125, CENTER_Y - 50, 300, 100, Color.LIGHT_GRAY);
+        floor = new Brick(0, HEIGHT, WIDTH, 50, Color.BLACK);
 //        MouseInput mouse = new MouseInput();  //local mouse input object is used instead of an anonymous inner type so we may have multiple mouse listeners working together better
 //        this.addMouseListener(mouse); //adds a listener to listen for clicking of mouse buttons
     }
