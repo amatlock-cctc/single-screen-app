@@ -1,8 +1,11 @@
 package com.cctc.amatlock.singleScreenApp;
 
+import javafx.print.PageLayout;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 
 
 public class Screen extends Canvas implements Runnable
@@ -22,10 +25,16 @@ public class Screen extends Canvas implements Runnable
     // Instance variable
     private boolean running = false;  // Boolean flipped when the program starts or stops.
     private Thread thread;  // Don't worry about what this is.
+//    private CoreObject[] coreObjects = new CoreObject[0];
+    private Player player = new Player(WIDTH/2, HEIGHT/2, 50, 50, Color.BLACK);
 
     public static Screen getInstance()
     {
         return screen;
+    }
+    public Player getPlayer()
+    {
+        return player;
     }
 
     /**
@@ -47,16 +56,7 @@ public class Screen extends Canvas implements Runnable
     public void drawForeground(Graphics g)
     {
         // Draw a light gray rectangle in the middle
-        g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(CENTER_X - 150, CENTER_Y - 50, 300, 100);
-
-        // Draw some text on the screen.
-        // I chose to locate it in the rectangle we just drew.
-        g.setColor(Color.BLACK);
-        String line1 = "Hello Class, if you want more to do,";
-        String line2 = "change things in drawForeground().";
-        g.drawString(line1, CENTER_X - 125, CENTER_Y - 10);
-        g.drawString(line2, CENTER_X - 125, CENTER_Y + 10);
+        player.render(g);
     }
 
     public void render()
@@ -81,7 +81,7 @@ public class Screen extends Canvas implements Runnable
 
     public void tick()
     {
-
+        player.tick();
     }
 
     /**
@@ -91,6 +91,8 @@ public class Screen extends Canvas implements Runnable
     {
 //        MouseInput mouse = new MouseInput();  //local mouse input object is used instead of an anonymous inner type so we may have multiple mouse listeners working together better
 //        this.addMouseListener(mouse); //adds a listener to listen for clicking of mouse buttons
+        KeyInput keyInput = new KeyInput();
+        this.addKeyListener(keyInput);
     }
 
     @Override
