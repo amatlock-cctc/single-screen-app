@@ -20,7 +20,6 @@ public class KeyInput implements KeyListener
     @Override
     public void keyPressed(KeyEvent e)
     {
-
         switch (e.getKeyCode())
         {
             case KeyEvent.VK_A:
@@ -51,33 +50,50 @@ public class KeyInput implements KeyListener
         switch (e.getKeyCode())
         {
             case KeyEvent.VK_A:
-                if(!dPressed)
+                aPressed = false;
+                if(dPressed)
+                {
+                    Screen.getInstance().getPlayer().setVelX(1.0);
+                }
+                else
                 {
                     Screen.getInstance().getPlayer().setVelX(0);
                 }
-                aPressed = false;
                 break;
             case KeyEvent.VK_D:
-                if(!aPressed)
+                dPressed = false;
+                if(aPressed)
+                {
+                    Screen.getInstance().getPlayer().setVelX(-1.0);
+                }
+                else
                 {
                     Screen.getInstance().getPlayer().setVelX(0);
                 }
-                dPressed = false;
                 break;
             case KeyEvent.VK_W:
-                if(!sPressed)
+                wPressed = false;
+                if(wPressed)
+                {
+                    Screen.getInstance().getPlayer().setVelY(1.0);
+                }
+                else
                 {
                     Screen.getInstance().getPlayer().setVelY(0);
                 }
-                wPressed = false;
                 break;
             case KeyEvent.VK_S:
-                if(!wPressed)
+                sPressed = false;
+                if(wPressed)
+                {
+                    Screen.getInstance().getPlayer().setVelY(-1.0);
+                }
+                else
                 {
                     Screen.getInstance().getPlayer().setVelY(0);
                 }
-                sPressed = false;
                 break;
         }
+
     }
 }

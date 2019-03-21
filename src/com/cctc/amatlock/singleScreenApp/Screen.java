@@ -46,7 +46,6 @@ public class Screen extends Canvas implements Runnable
      */
     public void drawBackground(Graphics g)
     {
-
         // Making a dark gray background.
         // First set the draw color to dark grey.
         g.setColor(Color.DARK_GRAY);
@@ -114,6 +113,7 @@ public class Screen extends Canvas implements Runnable
 
         player = new Player(WIDTH/2, HEIGHT/2, 50, 50, Color.BLACK);
         goal = new Goal(WIDTH - 50, HEIGHT - 50, 50, 50, Color.WHITE);
+
     }
 
     @Override
@@ -182,7 +182,8 @@ public class Screen extends Canvas implements Runnable
     /**
      * Starts the program thread
      */
-    private synchronized void start() {
+    private synchronized void start()
+    {
         if (running) // If program is running, we do not want to run the program again
             return;
         else
@@ -194,7 +195,8 @@ public class Screen extends Canvas implements Runnable
     /**
      * Stops the program thread
      */
-    private synchronized void stop() {
+    private synchronized void stop()
+    {
         if (!running)  // If the program has stopped, why stop it again?
             return;
         else
