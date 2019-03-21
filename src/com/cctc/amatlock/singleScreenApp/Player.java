@@ -19,6 +19,15 @@ public class Player extends CoreObject
         this.velY = velY;
     }
 
+    public double getVelX()
+    {
+        return velX;
+    }
+    public double getVelY()
+    {
+        return velY;
+    }
+
     @Override
     public void render(Graphics g)
     {
@@ -35,5 +44,6 @@ public class Player extends CoreObject
         {
 //            velY += Screen.GRAVITY;
         }
+
     }
 }

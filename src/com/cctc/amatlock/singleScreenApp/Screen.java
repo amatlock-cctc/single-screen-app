@@ -30,6 +30,7 @@ public class Screen extends Canvas implements Runnable
 //    private CoreObject[] coreObjects = new CoreObject[0];
     private Player player;
     private Goal goal;
+    private Brick floor;
 
     public static Screen getInstance()
     {
@@ -60,6 +61,7 @@ public class Screen extends Canvas implements Runnable
         // Draw a light gray rectangle in the middle
         player.render(g);
         goal.render(g);
+        floor.render(g);
     }
 
     public void drawAnnouncement(Graphics g, String text)
@@ -99,6 +101,7 @@ public class Screen extends Canvas implements Runnable
     {
         player.tick();
         goal.tick();
+        floor.tick();
     }
 
     /**
@@ -112,8 +115,8 @@ public class Screen extends Canvas implements Runnable
         this.addKeyListener(keyInput);
 
         player = new Player(WIDTH/2, HEIGHT/2, 50, 50, Color.BLACK);
-        goal = new Goal(WIDTH - 50, HEIGHT - 50, 50, 50, Color.WHITE);
-
+        goal = new Goal(WIDTH - 50, HEIGHT - 150, 50, 50, Color.WHITE);
+        floor = new Brick(0, HEIGHT - 60, WIDTH, 30, Color.BLUE);
     }
 
     @Override
