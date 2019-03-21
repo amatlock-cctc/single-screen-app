@@ -18,6 +18,7 @@ public class Screen extends Canvas implements Runnable
     public static final int CENTER_X = Screen.WIDTH / 2;
     public static final int CENTER_Y = Screen.HEIGHT / 2;
     public static final double GRAVITY = 0.977;
+    public static final Color GOLD = new Color(135, 135, 30);
     public static final String TITLE = "My Window";  // Window title
 
     private static JFrame frame = new JFrame();  // This is the window object
@@ -27,7 +28,8 @@ public class Screen extends Canvas implements Runnable
     private boolean running = false;  // Boolean flipped when the program starts or stops.
     private Thread thread;  // Don't worry about what this is.
 //    private CoreObject[] coreObjects = new CoreObject[0];
-    private Player player = new Player(WIDTH/2, HEIGHT/2, 50, 50, Color.BLACK);
+    private Player player;
+    private Goal goal;
 
     public static Screen getInstance()
     {
@@ -58,6 +60,20 @@ public class Screen extends Canvas implements Runnable
     {
         // Draw a light gray rectangle in the middle
         player.render(g);
+        goal.render(g);
+    }
+
+    public void drawAnnouncement(Graphics g, String text)
+    {
+        int xOffset = 100;
+        int yOffset = 25;
+        g.setColor(Color.WHITE);
+        g.fillRect(Screen.WIDTH/2 - xOffset, Screen.HEIGHT/2 - yOffset, 200, 50);
+        g.drawRect(Screen.WIDTH/2 - xOffset, Screen.HEIGHT/2 - yOffset, 200, 50);
+
+        g.setColor(GOLD);
+        g.drawString(text, Screen.WIDTH/2 - 40, Screen.HEIGHT/2 - 10);
+        System.out.println(text);
     }
 
     public void render()
@@ -83,6 +99,7 @@ public class Screen extends Canvas implements Runnable
     public void tick()
     {
         player.tick();
+        goal.tick();
     }
 
     /**
@@ -94,6 +111,9 @@ public class Screen extends Canvas implements Runnable
 //        this.addMouseListener(mouse); //adds a listener to listen for clicking of mouse buttons
         KeyInput keyInput = new KeyInput();
         this.addKeyListener(keyInput);
+
+        player = new Player(WIDTH/2, HEIGHT/2, 50, 50, Color.BLACK);
+        goal = new Goal(WIDTH - 50, HEIGHT - 50, 50, 50, Color.WHITE);
     }
 
     @Override
