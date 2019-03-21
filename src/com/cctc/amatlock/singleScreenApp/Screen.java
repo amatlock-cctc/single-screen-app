@@ -17,6 +17,7 @@ public class Screen extends Canvas implements Runnable
     public static final int HEIGHT = WIDTH / 4 * 3;  // Height of the window
     public static final int CENTER_X = Screen.WIDTH / 2;
     public static final int CENTER_Y = Screen.HEIGHT / 2;
+    public static final double GRAVITY = 0.977;
     public static final String TITLE = "My Window";  // Window title
 
     private static JFrame frame = new JFrame();  // This is the window object

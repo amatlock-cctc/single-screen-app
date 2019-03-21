@@ -30,9 +30,10 @@ public class Player extends CoreObject
     public void tick()
     {
         x += velX;
+        y += velY;
         if(falling)
         {
-            y += velY;
+//            velY += Screen.GRAVITY;
         }
     }
 }
